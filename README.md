@@ -6,3 +6,4 @@ Code repository for freeCodeCamp article on how to create dynamic emails in Gola
 
 - Node.js
 - Golang
+- Docker compose
