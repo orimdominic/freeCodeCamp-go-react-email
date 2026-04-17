@@ -1,0 +1,23 @@
+{
+  "name": "emails",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "email dev --dir ./src",
+    "export": "email export --pretty --dir ./src --outDir ../templates"
+  },
+  "keywords": [],
+  "author": "Orim Dominic Adah <orimdominic@gmail.com>",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@react-email/ui": "6.0.0",
+    "@types/react": "19.2.14"
+  },
+  "dependencies": {
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "react-email": "6.0.0"
+  }
+}
