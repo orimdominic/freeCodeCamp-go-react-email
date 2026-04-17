@@ -3,10 +3,13 @@ package mailer
 import (
 	"html/template"
 	"io"
+
+	"github.com/wneessen/go-mail"
 )
 
 const (
 	welcomeMailKey = "welcome_mail"
+	sender         = "noreply@localhost.com"
 )
 
 func setUpTemplates() (map[string]*template.Template, error) {
@@ -24,6 +27,7 @@ func setUpTemplates() (map[string]*template.Template, error) {
 }
 
 type Mailer struct {
+	client    *mail.Client
 	templates map[string]*template.Template
 }
 
@@ -34,7 +38,18 @@ func NewMailer() (*Mailer, error) {
 		return nil, err
 	}
 
+	c, err := mail.NewClient(
+		"localhost",
+		mail.WithPort(1025),
+		mail.WithTLSPolicy(mail.NoTLS),
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
 	return &Mailer{
+		client:    c,
 		templates: tpls,
 	}, nil
 }
@@ -49,5 +64,16 @@ func (mailer *Mailer) WriteWelcomeMail(w io.Writer, data WelcomEmailData) error 
 	tmpl := mailer.templates[welcomeMailKey]
 	err := tmpl.Execute(w, data)
 
+	return err
+}
+
+func (mailer *Mailer) SendWelcomeMail(to string, data WelcomEmailData) error {
+	m := mail.NewMsg()
+	m.From(sender)
+	m.To(to)
+	m.Subject("Welcome to " + data.Company)
+	m.SetBodyHTMLTemplate(mailer.templates[welcomeMailKey], data)
+
+	err := mailer.client.DialAndSend(m)
 	return err
 }

@@ -20,7 +20,7 @@ func main() {
 		company := r.URL.Query().Get("company")
 		gophers := []string{"Tinky Winky", "Dipsy", "Laa-Laa", "Po"}
 
-		err := mailer.WriteWelcomeMail(w, pkgMailer.WelcomEmailData{
+		err := mailer.SendWelcomeMail("fcc@go.dev", pkgMailer.WelcomEmailData{
 			Username: username,
 			Company:  company,
 			Gophers:  gophers,
@@ -29,6 +29,8 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+
+		fmt.Fprint(w, "Email sent")
 	})
 
 	port := ":8888"
