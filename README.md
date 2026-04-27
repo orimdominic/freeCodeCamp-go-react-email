@@ -1,6 +1,8 @@
 # freeCodeCamp-go-react-email
 
-Code repository for freeCodeCamp article on how to create dynamic emails in Golang with React Email
+[How to create dynamic emails in Golang with React Email](https://www.freecodecamp.org/news/how-to-create-dynamic-emails-in-go-with-react-email/)
+
+Code repository for the freeCodeCamp article. 
 
 ## Requirements
 
